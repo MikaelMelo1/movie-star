@@ -57,7 +57,7 @@ if ($type === "register") {
 
   $email = filter_input(INPUT_POST, "email");
   $password = filter_input(INPUT_POST, "password");
-
+                                                                                                                         
   if ($userDao->authenticateUser($email, $password)) {
     $message->setMessage("Seja bem-vindo!", "success", "index.php");
   } else {

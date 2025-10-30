@@ -2,7 +2,7 @@
 
 require_once("models/Movie.php");
 require_once("models/Message.php");
-
+require_once("dao/ReviewDAO.php");
 
 
 
@@ -30,6 +30,10 @@ class MovieDAO implements MovieDAOInterface {
     $movie->trailer = $data["trailer"];
     $movie->users_id = $data["users_id"];
 
+    $reviewDao = new ReviewDao($this->conn, $this->url);
+    $rating = $reviewDao->getRating($movie->id);
+
+    $movie->rating = $rating;
     return $movie;
   }
 
@@ -126,7 +130,30 @@ public function create(Movie $movie) {
 
     return $movies;
   }
-  public function findByTitle($title) {}
+  public function findByTitle($title) {
+
+    $movies = [];
+
+    $stmt = $this->conn->prepare("SELECT * FROM movies WHERE title LIKE :title");
+
+    $searchTitle = "%" . $title . "%";
+
+    $stmt->bindParam(":title", $searchTitle);
+
+    $stmt->execute();
+
+    if($stmt->rowCount() > 0) {
+      $moviesData = $stmt->fetchAll();
+
+      foreach($moviesData as $movieData) {
+        $movie = $this->buildMovie($movieData);
+
+        $movies[] = $movie;
+      }
+    }
+
+    return $movies;
+  }
   public function getLatestMovies() {
     $movies = [];
 

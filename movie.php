@@ -4,7 +4,7 @@
   // Verifica se usuário está autenticado
   require_once("models/Movie.php");
   require_once("dao/MovieDAO.php");
-  // require_once("dao/ReviewDAO.php");
+  require_once("dao/ReviewDAO.php");
 
   // Pegar o id do filme
   $id = filter_input(INPUT_GET, "id");
@@ -13,7 +13,7 @@
 
   $movieDao = new MovieDAO($conn, $BASE_URL);
 
-  // $reviewDao = new ReviewDAO($conn, $BASE_URL);
+  $reviewDao = new ReviewDAO($conn, $BASE_URL);
 
   if(empty($id)) {
 
@@ -52,7 +52,18 @@
   }
 
   // Resgatar as reviews do filme
-  // $movieReviews = $reviewDao->getMoviesReview($movie->id);
+  if (method_exists($reviewDao, 'getMoviesReview')) {
+    $movieReviews = $reviewDao->getMoviesReview($movie->id);
+  } elseif (method_exists($reviewDao, 'getMovieReviews')) {
+    $movieReviews = $reviewDao->getMovieReviews($movie->id);
+  } elseif (method_exists($reviewDao, 'getReviewsByMovie')) {
+    $movieReviews = $reviewDao->getReviewsByMovie($movie->id);
+  } elseif (method_exists($reviewDao, 'getReviewsByMovieId')) {
+    $movieReviews = $reviewDao->getReviewsByMovieId($movie->id);
+  } else {
+    // Fallback: método não disponível — evitar erro fatal retornando lista vazia
+    $movieReviews = [];
+  }
 
 ?>
 <div id="main-container" class="container-fluid">

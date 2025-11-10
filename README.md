@@ -1,6 +1,14 @@
 # 🎬 MovieStar
 
 Sistema web de avaliação e catalogação de filmes desenvolvido em PHP. Permite que usuários cadastrem filmes, façam avaliações e compartilhem suas opiniões sobre produções cinematográficas.
+<img width="1902" height="800" alt="image" src="https://github.com/user-attachments/assets/97db0f7b-aee6-4e90-855e-605cd8b9872a" />
+<img width="1895" height="896" alt="image" src="https://github.com/user-attachments/assets/b2324884-cd93-4a99-8c01-46eee6a45637" />
+<img width="1916" height="886" alt="image" src="https://github.com/user-attachments/assets/0670f1a3-5492-4304-9657-5a9ad447b273" />
+<img width="1886" height="900" alt="image" src="https://github.com/user-attachments/assets/9d9fbb73-ec42-40a3-a0d6-19136f8faf38" />
+
+
+
+
 
 ## 📋 Índice
 
